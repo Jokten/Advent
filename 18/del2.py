@@ -47,16 +47,14 @@ class Tree:
             self.root.send_down(pack, adress, self.pos)
 
     def magnitude(self):
-        if isinstance(self.branch[0],int):
-            val1 = self.branch[0]
-        else:
-            val1 = self.branch[0].magnitude()
-        if isinstance(self.branch[1],int):
-            val2 = self.branch[1]
-        else:
-            val2 = self.branch[1].magnitude()
+        val = [0, 0]
+        for i in range(2):
+            if isinstance(self.branch[i],int):
+                val[i] = self.branch[i]
+            else:
+                val[i] = self.branch[i].magnitude()
 
-        return 3*val1 + 2*val2
+        return 3*val[0] + 2*val[1]
 
     def __str__(self):
         return f'[{str(self.branch[0])},{str(self.branch[1])}]'

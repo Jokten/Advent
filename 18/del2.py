@@ -64,24 +64,23 @@ class Tree:
 
 def main():
     with open('input.txt', 'r') as file:
-        first = next(file)
         data = file.read().splitlines()
-    snail = eval(first)
-
-    snail_tree = Tree(0, snail, None, None)
-    old = ''
+    combinations = []
+    maxmagn = 0
     for i in data:
-        new_arr = eval(f'[{str(snail_tree)},{i}]')
-        snail_tree = Tree(0, new_arr, None, None)
+        for j in data:
+            combinations.append(f'[{i},{j}]')
+    for i in combinations:
+        snail = eval(i)
+        snail_tree = Tree(0, snail, None, None)
         old = ''
         while old != str(snail_tree):
             old = str(snail_tree)
-            print(old)
             snail_tree.explode()
             snail_tree.split()
-    print(snail_tree.magnitude())
-    print(snail_tree)
-
-
+        magn = snail_tree.magnitude()
+        if magn > maxmagn:
+            maxmagn = magn
+    print(maxmagn)
 if __name__ == '__main__':
     main()

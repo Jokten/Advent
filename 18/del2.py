@@ -80,5 +80,7 @@ def main():
         if magn > maxmagn:
             maxmagn = magn
     print(maxmagn)
+
+
 if __name__ == '__main__':
     main()

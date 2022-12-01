@@ -14,11 +14,11 @@ def addx(map):
 
 
 def main():
-    with open('input.txt', 'r') as file:
+    with open('2021\\15\\input.txt', 'r') as file:
         data = file.read().splitlines()
     oldmap = [[int(j) for j in i] for i in data]
 
-    with open('facit.txt', 'r') as file:
+    with open('2021\\15\\facit.txt', 'r') as file:
         data = file.read().splitlines()
     oldmap2 = [[int(j) for j in i] for i in data]
 

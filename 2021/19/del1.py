@@ -11,7 +11,7 @@ def orientations(vect):
 
 
 def main():
-    with open('input.txt', 'r') as file:
+    with open('2021\\19\input.txt', 'r') as file:
         data = file.read()
     worked_data = [i.splitlines() for i in data.split('\n\n')]
 

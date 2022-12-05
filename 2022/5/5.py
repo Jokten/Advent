@@ -1,49 +1,51 @@
 import numpy as np
 import itertools
+import sys
+import os
+import copy
+sys.path.append(os.path.dirname(os.path.realpath(__file__)).split('2022')[0])
+import aoctools
 
 
 def load_data():
-    with open("2022\\4\\input.txt", "r") as f:
-        data = f.read().splitlines()
+    start_data, inst_data = aoctools.data_loader(2022, 5, two_parts=True)
     stack = [[] for i in range(9)]
     for i in range(8):
         for j in range(9):
-            if data[i][j*4+1] != ' ':
-                stack[j].append(data[i][j*4+1])
-    [i.reverse() for i in stack]
-    inst = []
-    for i in data[10:]:
-        k = i.split(' ')
-        inst.append((int(k[1]), int(k[3]), int(k[5])))
-    print(stack)
+            if start_data[i][j*4+1] != ' ':
+                stack[j].append(start_data[i][j*4+1])
+    for i in stack: i.reverse()
+    
+    inst = aoctools.parse_numbers(inst_data)
     return stack, inst
 
 def part1(data):
-    stack = data[0]
-    inst = data[1]
+    stack = copy.deepcopy(data[0])
+    inst = data[1].copy()
     for i in inst:
         for j in range(i[0]):
             stack[i[2]-1].append(stack[i[1]-1].pop())
-    print(stack)
+    st = ''
     for i in stack:
-        print(i[-1], end='')
+        st += i[-1]
+    return st
 
 def part2(data):
-    stack = data[0]
-    inst = data[1]
+    stack = copy.deepcopy(data[0])
+    inst = data[1].copy()
     for i in inst:
         stack[i[2]-1] += stack[i[1]-1][-i[0]:]
-        print(stack)
         for j in range(i[0]):
             stack[i[1]-1].pop()
-    print(stack)
+    st = ''
     for i in stack:
-        print(i[-1], end='')
+        st += i[-1]
+    return st
 
 def main():
     d = load_data()
     print(part1(d))
-    print(part2(load_data()))
+    print(part2(d))
 
 if __name__ == "__main__":
     main()

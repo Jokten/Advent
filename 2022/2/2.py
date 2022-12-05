@@ -3,6 +3,7 @@ import itertools
 
 look = {'X': 'A', 'Y': 'B', 'Z': 'C'}
 conv = {'A': 0, 'B': 1, 'C': 2}
+
 def load_data():
     with open("2022\\2\\input.txt", "r") as f:
         data = f.read().splitlines()
@@ -31,10 +32,9 @@ def part2(data):
     return sc
 
 def main():
-    d = load_data()
-    D = [i.split(' ') for i in d]
-    print(part1(D))
-    print(part2(D))
+    d = [i.split(' ') for i in load_data()]
+    print(part1(d))
+    print(part2(d))
 
 if __name__ == "__main__":
     main()

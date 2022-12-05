@@ -2,6 +2,7 @@ import numpy as np
 import itertools
 import sys
 import os
+import re
 import copy
 sys.path.append(os.path.dirname(os.path.realpath(__file__)).split('2022')[0])
 import aoctools
@@ -10,12 +11,8 @@ import aoctools
 def load_data():
     start_data, inst_data = aoctools.data_loader(2022, 5, two_parts=True)
     stack = [[] for i in range(9)]
-    for i in range(8):
-        for j in range(9):
-            if start_data[i][j*4+1] != ' ':
-                stack[j].append(start_data[i][j*4+1])
-    for i in stack: i.reverse()
-    
+    for i in start_data[-2::-1]:
+        for match in re.finditer('[A-Z]', i): stack[(match.start()//4)].append(match.group())
     inst = aoctools.parse_numbers(inst_data)
     return stack, inst
 

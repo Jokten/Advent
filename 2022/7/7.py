@@ -21,11 +21,9 @@ class terminal():
             self.parent.append(self.dirs)
             self.dirs = self.dirs[path]
     
-    def ls(self):
-        return list(self.dirs.keys())
-    
     def dir(self, name):
-        self.dirs[name] = {}
+        if name not in self.dirs.keys():
+            self.dirs[name] = {}
 
     def add(self, name, value):
         self.dirs[name] = value
@@ -56,11 +54,7 @@ class terminal():
         return sum
     
     def delete(self, size):
-        smallest = 9999999999
-        for i in self.dir_sizes:
-            if self.left+i > size:
-                smallest = min(smallest, i)
-        return smallest
+        return min([i for i in self.dir_sizes if self.left+i > size])
 
 def main():
     data = aoctools.data_loader(2022, 7, two_parts=False)
@@ -71,7 +65,7 @@ def main():
             if i[1] == 'cd':
                 term.cd(i[2])
             elif i[1] == 'ls':
-                print(term.ls())
+                pass
         elif i[0] == 'dir':
             term.dir(i[1])
         else:

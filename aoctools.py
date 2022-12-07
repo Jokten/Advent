@@ -10,3 +10,6 @@ def data_loader(year,day,two_parts=False):
 
 def parse_numbers(data):
     return [[int(i) for i in re.findall(r'-?\d+', row)] for row in data]
+
+def transpose(data):
+    return list(map(list, zip(*data)))

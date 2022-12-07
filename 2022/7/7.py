@@ -67,7 +67,6 @@ def main():
     term = terminal()
     for k in data:
         i = k.split(' ')
-        print(i)
         if i[0] == '$':
             if i[1] == 'cd':
                 term.cd(i[2])

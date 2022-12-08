@@ -33,20 +33,18 @@ class terminal:
         self.dir_sizes.append(sum)
         return sum
     
-    def delete(self, size):
-        return min([i for i in self.dir_sizes if self.left+i > size])
-
 def main():
     data = aoctools.data_loader(2022, 7, two_parts=False)
     term = terminal()
     for k in data:
         match k.split():
             case '$', 'cd', x: term.cd(x)
-            case '$', 'ls': pass
+            case '$', 'ls': continue
             case 'dir', x: term.dirs.setdefault(x,{})
             case size, name: term.dirs.setdefault(name, int(size))
     term.count()
     print(sum([i for i in term.dir_sizes if i < 100000]))
     print(min([i for i in term.dir_sizes if term.left+i > 30000000]))
+
 if __name__ == "__main__":
     main()

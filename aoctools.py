@@ -1,4 +1,5 @@
 import re
+import numpy as np
 
 def data_loader(year,day,two_parts=False):
     with open(f'{year}\\{day}\input.txt', 'r') as file:
@@ -13,3 +14,8 @@ def parse_numbers(data):
 
 def transpose(data):
     return list(map(list, zip(*data)))
+
+def np_array(data, num=False):
+    if num:data = [list(map(int, row)) for row in data]
+    else: data = [list(row) for row in data]
+    return np.array(data)

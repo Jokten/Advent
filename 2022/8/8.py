@@ -47,13 +47,12 @@ def scenic(forest, x, y):
     return total
 
 def main():
-    # cnt = 0
     data = aoctools.data_loader(2022, 8, two_parts=False)
     forest = []
     for row in data:
         forest.append([int(i) for i in list(row)])
     forest = np.array(forest)
-    
+
     cnt = tree_check(forest)
     cnt += tree_check(forest, reverse=True)
     cnt += tree_check(forest.T, transpose=True)

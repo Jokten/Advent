@@ -13,7 +13,6 @@ def load_data():
     stack = [[] for i in range(9)]
     dt = aoctools.transpose(start_data)
     dt = [list(reversed(list(''.join(i[:-1]).strip()))) for i in dt][1::4]
-    print(dt)
     for i in start_data[-2::-1]:
         for match in re.finditer('[A-Z]', i): stack[(match.start()//4)].append(match.group())
     inst = aoctools.parse_numbers(inst_data)

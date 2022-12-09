@@ -15,10 +15,11 @@ def main():
     data = aoctools.data_loader(2022, 9, two_parts=False)
     visited = set()
     visited.add((0,0))
+    visited2 = set()
+    visited2.add((0,0))
     pos_tails = [[0,0]]
-    # num_tails = 1 # part 1
-    num_tails = 9 # part 2
-    for i in range(9):
+    num_tails = 9
+    for i in range(num_tails):
         pos_tails.append([0,0])
     for i in data:
         ins = i.split(' ')
@@ -32,7 +33,9 @@ def main():
                 head, tail = pos_tails[i-1], pos_tails[i]
                 if not in_range(head, tail):
                     pos_tails[i] = move_to(head, tail)
-                    if i == num_tails: visited.add(tuple(pos_tails[i]))
-    print(len(visited))
+                    if i == 1: visited.add(tuple(pos_tails[i]))
+                    elif i == num_tails: visited2.add(tuple(pos_tails[i]))
+    print(f'Part 1: {len(visited)}')
+    print(f'Part2: {len(visited2)}')
 if __name__ == '__main__':
     main()

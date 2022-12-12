@@ -5,7 +5,7 @@ look = {'X': 'A', 'Y': 'B', 'Z': 'C'}
 conv = {'A': 0, 'B': 1, 'C': 2}
 
 def load_data():
-    with open("2022\\2\\input.txt", "r") as f:
+    with open(r"2022\2\input.txt", "r") as f:
         data = f.read().splitlines()
     return data
 

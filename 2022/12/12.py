@@ -40,21 +40,16 @@ def main():
     data = aoctools.data_loader(2022, 12, two_parts=False)
     alt_start = []
     for e,i in enumerate(data):
-        if re.search(r'S',i):
-            start = (e,i.index('S'))
+        if re.search(r'S',i): start = (e,i.index('S'))
         if re.search(r'a',i):
-            for a in re.finditer(r'a',i):
-                alt_start.append((e,a.start()))
-        if re.search(r'E',i):
-            end = (e,i.index('E'))
+            for a in re.finditer(r'a',i): alt_start.append((e,a.start()))
+        if re.search(r'E',i): end = (e,i.index('E'))
     data = np.array([[ord(i) - ord('a') for i in row] for row in data])
     data [start] = 0
     data [end] = ord('z') - ord('a')
-    st = time.perf_counter()
+
     print(astar(data, start, end)) # part 1
-    st2 = time.perf_counter()
     print(astar(data, alt_start, end)) # part 2
-    st3 = time.perf_counter()
 
 if __name__ == '__main__':
     main()

@@ -14,8 +14,7 @@ def main():
 
     for i in range(6):
         lis = []
-        for j in range(40):
-            lis.append(' ')
+        for j in range(40): lis.append(' ')
         crt.append(lis)
 
     while data:

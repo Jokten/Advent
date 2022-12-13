@@ -1,14 +1,12 @@
 from functools import cmp_to_key
 
-def compare(a, b):
-    if isinstance(a, int) and isinstance(b, int):
-        if a > b: return -1
-        if a < b: return 1
+def compare(x, y):
+    if isinstance(x, int) and isinstance(y, int):
+        if x > y: return -1
+        if x < y: return 1
         return 0
-    if isinstance(a, int): x = [a]
-    if isinstance(b, int): y = [b]
-    if isinstance(a, list): x = a
-    if isinstance(b, list): y = b
+    if isinstance(x, int): x = [x]
+    if isinstance(y, int): y = [y]
     items = list(zip(x, y))
     for item in items:
         val = compare(item[0], item[1])

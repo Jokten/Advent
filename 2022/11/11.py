@@ -1,5 +1,6 @@
 import re
 import math
+
 class Monkey:
     def __init__(self, data, monkeys):
         self.name = int(re.findall(r'Monkey (\d):$', data[0])[0])
@@ -23,7 +24,7 @@ class Monkey:
 
 
 def main():
-    with open('2022\\11\input.txt', 'r') as file:
+    with open(r'2022\11\input.txt', 'r') as file:
         data = file.read()
     data = data.split('\n\n')
     monkeys = []

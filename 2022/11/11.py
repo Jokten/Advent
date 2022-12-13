@@ -1,7 +1,9 @@
 import re
-import math
+
+
 
 class Monkey:
+
     def __init__(self, data, monkeys):
         self.name = int(re.findall(r'Monkey (\d):$', data[0])[0])
         self.items = [int(i) for i in re.findall(r'(\d{2})', data[1])]
@@ -14,11 +16,10 @@ class Monkey:
 
     def throw(self):
         for old in self.items:
-            new = eval(self.op)%self.mods#//3
-            if new % self.div == 0:
-                self.monkeys[self.true].items.append(new)
-            else:
-                self.monkeys[self.false].items.append(new)
+            # new = eval(self.op)//3 # p1
+            new = eval(self.op)%self.mods # p2
+            if new % self.div == 0: self.monkeys[self.true].items.append(new)
+            else: self.monkeys[self.false].items.append(new)
             self.inspects += 1
         self.items = []
 
@@ -30,19 +31,14 @@ def main():
     monkeys = []
     for i in data:
         monkeys.append(Monkey(i.splitlines(), monkeys))
-    divs = []
-    for monkey in monkeys: divs.append(monkey.div)
-    mods = math.prod(divs)
-    for monkey in monkeys: monkey.mods = mods
-
+    mod = 1
+    for monkey in monkeys : mod *= monkey.div
+    for monkey in monkeys: monkey.mods = mod
     for i in range(10000):
-        for monkey in monkeys:
-            monkey.throw()
+        for monkey in monkeys: monkey.throw()
     inspects = []
-    for monkey in monkeys:
-        inspects.append(monkey.inspects)
+    for monkey in monkeys: inspects.append(monkey.inspects)
     inspects.sort()
-    print(inspects)
     print(inspects[-1]*inspects[-2])
 
 if __name__ == '__main__':

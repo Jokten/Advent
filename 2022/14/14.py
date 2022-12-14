@@ -24,23 +24,19 @@ def neighbours(cords):
             
 def main():
     occupied, depth = parser()
-    void = 1
     tot = 0
     part1= 0
-    while void:
+    while (500, 0) not in occupied:
         cur = (500, 0)
         while True:
             ne = [i for i in neighbours(cur) if (i not in occupied) and i[1] < depth+2]
             if ne: cur = ne[0]
-            else:
-                occupied.add(cur)
-                tot += 1
-                break
+            else: break
             if cur[1] >= depth and part1 == 0:
                 print('Part 1: ',tot)
                 part1 = 1
-        if (500, 0) in occupied:
-            void = 0
+        occupied.add(cur)
+        tot += 1
     print('Part 2: ',tot)
 
 

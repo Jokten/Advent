@@ -1,12 +1,10 @@
 import numpy as np
-import itertools
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)).split('2022')[0])
 import aoctools
 import heapq
 import re
-import time
 
 def distance(cur, end):
     return abs(cur[0]-end[0]) + abs(cur[1]-end[1])

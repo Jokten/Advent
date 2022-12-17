@@ -1,6 +1,8 @@
 import numpy as np
+import time
+from functools import cache
 
-
+@cache
 def orientations(vect):
     x = vect[0]
     y = vect[1]
@@ -11,10 +13,9 @@ def orientations(vect):
 
 
 def main():
-    with open('2021\\19\input.txt', 'r') as file:
+    with open(r'2021\19\input.txt', 'r') as file:
         data = file.read()
     worked_data = [i.splitlines() for i in data.split('\n\n')]
-
     scanners = []
     for scanner in worked_data:
         p = set()
@@ -68,5 +69,9 @@ def main():
             if size > ocean_size:
                 ocean_size = size
     print(ocean_size)
+    print(scanners_tested)
+
 if __name__ == '__main__':
+    start = time.perf_counter()
     main()
+    print(f'Finished in {round(time.perf_counter()-start, 2)} second(s)')

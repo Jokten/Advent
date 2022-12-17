@@ -26,24 +26,18 @@ def main():
     with open(r'2022\15\input.txt', 'r') as openfile:
         data = openfile.read().splitlines()
     data = [[int(j) for j in re.findall(r'-?\d+', i)] for i in data]
-    dists = {}
-    beacs = set()
-    ref = 4000000
-    y1 = 2000000
     dists = {(x, y): abs(x-a) + abs(y-b) for x, y, a, b in data}
-    beacs = {(a, b) for x, y, a, b in data}
+    beacs = set([(a, b) for x, y, a, b in data])
     parse_time = time.perf_counter() - parse_start
     # part 1
-    ranges = find_possible(y1, dists)
-    print(sum([i[1]-i[0]+1 for i in ranges])-sum([1 for i in dists.keys() if i[1] == y1]) - sum([1 for i in beacs if i[1] == y1]))
+    ranges = find_possible(2000000, dists)
+    print(sum([i[1]-i[0]+1 for i in ranges])-sum([1 for i in dists.keys() if i[1] == 2000000]) - sum([1 for i in beacs if i[1] == 2000000]))
 
     # part 2
-
-    for i in range(ref):
+    for i in range(4000000):
         ranges = find_possible(i, dists)
-        red = [k for k in ranges if 0<k[1] and k[0]<ref]
+        red = [k for k in ranges if 0<k[1] and k[0]<4000000]
         if len(red) > 1:
-            print((red[0][1]+1),i)
             print((red[0][1]+1)*4000000+i)
             break
     

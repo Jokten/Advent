@@ -10,7 +10,6 @@ def load_data():
 def part1(data):
     return sum(st.index(list(set(i[:len(i)//2]) & set(i[len(i)//2:]))[0])+1 for i in data)
 
-    
 def part2(data):
     return sum(st.index(list(set(data[i]) & set(data[i+1]) & set(data[i+2]))[0])+1 for i in range(0,len(data),3))
 

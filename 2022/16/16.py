@@ -1,5 +1,9 @@
 import re
 from functools import cache
+import time
+from itertools import chain, combinations
+from tqdm import tqdm
+from copy import deepcopy
 
 def parse():
     paths = {}
@@ -12,7 +16,6 @@ def parse():
         flow[k[0]] = int(re.findall(r'\d+', i)[0])
     return flow, paths
 
-@cache
 def non_zero(current):
     start = paths[current]
     pos = []
@@ -25,77 +28,45 @@ def non_zero(current):
                 all.append(i)
                 if flow[i] > 0:
                     pos.append((i,turn))
-                else:
-                    done = 1
-                    new_start += paths[i]
+                new_start += paths[i]
+                new_start += paths[i]
         turn += 1
         start = new_start
     return tuple(pos)
 
-@cache
-def checker(turn, current, on):
+
+def checker(turn, current, on, TODO):
     possible = []
     turn -= 1
-    if turn == 0:
-        return 0
-    else:
-        if current not in on and flow[current] > 0:
-            possible.append(checker(turn, current, on+(current,))+flow[current]*turn)
-            
-        for i in paths[current]:
-            possible.append(checker(turn, i, on))
-    
-    return max(possible)
+    prs = flow[current]*turn
+    if on == TODO:
+        return prs
 
-@cache
-def checker2(turn, turnelp, current, elph, on):
-    possible = []
-    if sorted(list(paths.keys())) == sorted(list(on)):
-        return 0
-    if turn < 0 or turnelp < 0:
-        print(turn, turnelp, current, elph, on)
-    if turnelp < turn:
-        if turn == 0:
-            return 0
-        else:
-            if current not in on:
-                possible.append(checker2(turn-1, turnelp, current, elph, on+(current,))+flow[current]*turn)
-            for i,j in paths[current]:
-                if j > turn: continue
-                possible.append(checker2(turn-j, turnelp, i, elph, on))
-    else:
-        if turnelp == 0:
-            return 0
-        if elph not in on and turnelp:
-            possible.append(checker2(turn, turnelp-1, current, elph, on+(elph,))+flow[elph]*turnelp)
-            
-        for i, j in paths[elph]:
-            if j > turnelp: continue
-            possible.append(checker2(turn, turnelp-j, current, i, on))
+    for i, j in paths[current]:
+        if (i not in on) and (i in TODO) and (j < turn):
+            possible.append(checker(turn-j, i, on +(current,),TODO))
     if possible:
-        return max(possible)
+        return max(possible)+prs
     else:
-        return 0
-
+        return prs
+            
 #def main():
 flow, paths = parse()
 new_paths = {'AA': non_zero('AA')}
-new = {}
-while True:
-    done = 1
-    for i in new_paths:
-        for j in new_paths[i]:
-            if j[0] not in new_paths:
-                done = 0
-                new[j[0]] = non_zero(j[0])
-    new_paths.update(new)
-            
-    if done:
-        break
+for i in paths:
+    if flow[i] > 0: new_paths[i] = non_zero(i)
+
 paths = new_paths
-new_flow = {}
-#print(checker(30, 'AA', ()))
-print(checker2(25, 25, 'AA', 'AA', ()))
-# if __name__ == '__main__':
-#     main()
+stat = time.perf_counter()
+print(checker(30+1, 'AA', (),tuple(paths.keys())))
+print(time.perf_counter()-stat)
+
+scen = []
+things = list(paths.keys())
+things.remove('AA')
+subs = list(chain.from_iterable(combinations(things, r) for r in range(len(things)+1)))
+tot = len(subs)
+for ss in tqdm(subs, total=tot):
+    scen.append(checker(26+1,'AA',(),tuple(ss))+ checker(26+1,'AA',(),tuple(set(things)-set(ss))))
+print(max(scen))
 

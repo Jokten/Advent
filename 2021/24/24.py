@@ -5,19 +5,21 @@ def load_data():
         data = f.read().splitlines()
     return data
 
-def execute(inst,z,w):
-    reg = {'x':0, 'y':0, 'z':z, 'w':w}
-    for i in inst[1:]:
-        if i[0] == 'add': reg[i[1]] += (reg[i[2]] if i[2].isalpha() else int(i[2]))
-        elif i[0] == 'mul': reg[i[1]] *= (reg[i[2]] if i[2].isalpha() else int(i[2])) 
-        elif i[0] == 'div': reg[i[1]] //= (reg[i[2]] if i[2].isalpha() else int(i[2]))
-        elif i[0] == 'mod': reg[i[1]] %= (reg[i[2]] if i[2].isalpha() else int(i[2]))
-        elif i[0] == 'eql': reg[i[1]] = reg[i[1]] == (reg[i[2]] if i[2].isalpha() else int(i[2]))
-    return reg['z']
+def execute(inst, z, w):
+    # 1 or 26
+    x = (z%26) + inst[1]
+    z = z//inst[0]
+
+    if x!=w:
+        z *= 26
+        z += w + inst[2]
+    
+    return z
+    
 
 def split_mods(data):
     sections = []
-    sect = ['inp w']
+    sect = [['inp', 'w']]
     for i in range(1,len(data)):
         if data[i][0] == 'inp':
             sections.append(sect)
@@ -26,36 +28,42 @@ def split_mods(data):
     sections.append(sect)
     return sections
 
-def solver(ins,out):
-    possibles = []
-    for z in range(26):
-        for w in range(10):
-            if execute(ins[0],z,w) == out: possibles.append((z,w))
-    answ = []
-    if len(ins) == 1: return possibles
-    for i in possibles:
-        answ.append(str(i[1])+solver(ins[1:],i[0]))
-    return str(max([int(i) for i in answ]))
 
 
-def main():
-    
+def main(): 
     d = [i.split(' ') for i in load_data()]
     lis = split_mods(d)
-    lis.reverse()
-    print(lis)
-    print(len(lis))
-    vals = []
-    for i in lis:
-        possibles = []
-        out = 1
-        for w in range(10):
-            for z in range(2600):
-                output = execute(i,z,w)
-                if output == 26: possibles.append((z,w))
-        print(possibles)
 
+    instructions = []
+    intresting = [4, 5, 15]
+    for k in intresting:
+        inst = []
+        for i in lis:
+            inst.append(i[k])
+        instructions.append(inst)
+    
+    reduced_instructions = []
+    for i in range(len(instructions[0])):
+        reduced_instructions.append((int(instructions[0][i][2]), int(instructions[1][i][2]), int(instructions[2][i][2])))
 
+    # reduced_instructions.reverse()
+    print(reduced_instructions)
+    w = [9 for i in range(len(reduced_instructions))]
+    z = []
+    for i in reduced_instructions:
+        if i[0] == 26:
+
+    s = ''
+    for i in w:
+        s += '9'
+    print(s)
+
+    
+    
+    
+
+            
+    
 
 if __name__ == "__main__":
     main()

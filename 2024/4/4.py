@@ -1,4 +1,4 @@
-with open("input.txt", "r") as f:
+with open("./2024/4/input.txt", "r") as f:
     d = [i.strip() for i in f.readlines()]
 
 pos = dict()

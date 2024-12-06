@@ -1,5 +1,5 @@
 import re
-with open("input.txt", "r") as f:
+with open("./2024/3/input.txt", "r") as f:
     dd = f.read()
     d = re.findall(r"mul\((\d{1,3}),(\d{1,3})\)|(do\(\))|(don't\(\))", dd)
 

@@ -1,42 +1,18 @@
-import time
-
 def walk(chart, start):
-    dir = -1j
-    visited = set()
-    visited.add(start)
-    dir_vis = set()
-    dir_vis.add((start, dir))
+    visited, dir = {(start,-1j)}, -1j
     while True:
-        if start+dir not in chart: return 0, visited
+        if start+dir not in chart: return {p[0] for p in visited}
         while chart[start+dir] == "#": dir *= 1j
         start += dir
-        visited.add(start)
-        if (start,dir) in dir_vis: return 1, visited
-        dir_vis.add((start, dir))
+        if (start,dir) in visited: return 1
+        visited.add((start, dir))
 
-
-
-
-with open("./2024/6/input.txt", "r") as f:
-    d = [i.strip() for i in f.readlines()]
-
-
-chart = dict()
-for a in range(len(d)):
-    for b in range(len(d[0])):
-        chart[a*1j+b] = d[a][b]
-        if d[a][b] == "^": start = a*1j+b
-
-_, visited = walk(chart, start)
-print(len(visited))
-cnt = 0
-t = time.time()
-for i in visited:
-    if chart[i] in ["#", "^"]: continue
-    chart[i] = "#"
-    loop, _ = walk(chart,start)
-    chart[i] = "."
-    cnt += loop
-
-print(time.time()-t)
-print(cnt)
+def main():
+    d = [i.strip() for i in open("./2024/6/input.txt", "r").readlines()]
+    chart = {a*1j+b:d[a][b] for a in range(len(d)) for b in range(len(d[0]))}
+    start = [i[0] for i in chart.items() if i[1] == '^'][0]
+    visited = list(walk(chart, start))
+    print(f"Part 1: {len(visited)}\nPart 2: {sum([1 == walk(chart|{i: "#"},start) for i in visited])}")
+    
+if __name__ == "__main__":
+    main()

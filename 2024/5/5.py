@@ -1,5 +1,6 @@
 import re
 import functools
+
 with open("./2024/5/input.txt", "r") as f:
     rules, update = f.read().split("\n\n")
 rules = [list(map(int, re.findall(r"\d+", i))) for i in rules.split("\n")]

@@ -1,5 +1,6 @@
 import re
 import time
+from functools import cache
 
 def f(id,v,s,p):
     if id== len(v): return s==v[0]

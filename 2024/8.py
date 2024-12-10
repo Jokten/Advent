@@ -1,6 +1,7 @@
+import aoc
 mp = {}
 bnds = set()
-for e1,i in enumerate(open("./2024/8/input.txt", "r").readlines()):
+for e1,i in enumerate(aoc.get_data(2024,8).split("\n")):
     i = i.strip()
     for e2, j in enumerate(i):
         if j not in mp: mp[j] = [e1*1j+e2]

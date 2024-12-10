@@ -1,5 +1,5 @@
-with open("./2024/4/input.txt", "r") as f:
-    d = [i.strip() for i in f.readlines()]
+import aoc
+d = [i.strip() for i in aoc.get_data(2024,4).split("\n")]
 
 pos = dict()
 for i in range(len(d)):

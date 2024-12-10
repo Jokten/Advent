@@ -1,4 +1,4 @@
-import time
+import time, aoc
 
 from multiprocessing import Queue, cpu_count, Process
 def walk(chart, start):
@@ -15,7 +15,7 @@ def mp2(chart, start, step, visited, q, id):
 
 def main():
     t = time.time()
-    d = [i.strip() for i in open("./2024/6/input.txt", "r").readlines()]
+    d = [i.strip() for i in aoc.get_data(2024,6).split("\n")]
 
     chart = {a*1j+b:d[a][b] for a in range(len(d)) for b in range(len(d[0]))}
     start = [i[0] for i in chart.items() if i[1] == '^'][0]

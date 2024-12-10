@@ -1,7 +1,6 @@
-import re
-with open("./2024/3/input.txt", "r") as f:
-    dd = f.read()
-    d = re.findall(r"mul\((\d{1,3}),(\d{1,3})\)|(do\(\))|(don't\(\))", dd)
+import re, aoc
+
+d = re.findall(r"mul\((\d{1,3}),(\d{1,3})\)|(do\(\))|(don't\(\))", aoc.get_data(2024,3))
 
 p1, p2, e = 0, 0, 1
 for i in d:

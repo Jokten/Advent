@@ -1,8 +1,7 @@
-import re
+import re, aoc
 import functools
 
-with open("./2024/5/input.txt", "r") as f:
-    rules, update = f.read().split("\n\n")
+rules, update = aoc.get_data(2024,5).split("\n\n")
 rules = [list(map(int, re.findall(r"\d+", i))) for i in rules.split("\n")]
 update = [list(map(int, re.findall(r"\d+", i))) for i in update.split("\n")]
 

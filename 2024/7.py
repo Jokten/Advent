@@ -1,6 +1,5 @@
-import re
+import re, aoc
 import time
-from functools import cache
 
 def f(id,v,s,p):
     if id== len(v): return s==v[0]
@@ -10,6 +9,6 @@ def f(id,v,s,p):
     if p and f(id+1, v, s*10**(len(str(v[id]))) + v[id], p): return 1
 
 t = time.time()
-d = [tuple(map(int,re.findall(r"\d+", i))) for i in open("./2024/7/input.txt", 'r').readlines()]
+d = [tuple(map(int,re.findall(r"\d+", i))) for i in aoc.get_data(2024,7).split("\n")]
 print(sum(i[0] for i in d if f(2,i, i[1], 0)),time.time()-t)
 print(sum(i[0] for i in d if f(2,i, i[1], 1)),time.time()-t)

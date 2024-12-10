@@ -1,3 +1,4 @@
+import aoc
 def walk(chart, start):
     visited, dir = {(start,-1j)}, -1j
     while True:
@@ -8,7 +9,7 @@ def walk(chart, start):
         visited.add((start, dir))
 
 def main():
-    d = [i.strip() for i in open("./2024/6/input.txt", "r").readlines()]
+    d = [i.strip() for i in aoc.get_data(2024,6).split("\n")]
     chart = {a*1j+b:d[a][b] for a in range(len(d)) for b in range(len(d[0]))}
     start = [i[0] for i in chart.items() if i[1] == '^'][0]
     visited = list(walk(chart, start))

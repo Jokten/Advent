@@ -11,7 +11,8 @@ for i in d:
             p2 += 1
             tot.add(c)
         for i in [-1, 1, -1j, 1j]:
-            if c+i in d and d[c+i] == d[c]+1: q.append(c+i)
+            if c+i in d and d[c+i] == d[c]+1: 
+                q.append(c+i)
     p1 += len(tot)
     tot = set()
 print(p1, p2)

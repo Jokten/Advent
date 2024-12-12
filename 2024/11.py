@@ -2,6 +2,7 @@ import aoc, collections
 
 dic = collections.defaultdict(int)
 for i in aoc.get_data(2024,11).split(): dic[int(i)] += 1
+
 for i in range(75):
     for stone, c in tuple(dic.items()):
         if stone == 0:

@@ -10,13 +10,14 @@ for a in range(len(data)):
 visited = set()
 tot, tot2 = 0, 0
 for i in list(grid.keys()):
+    if i in visited: continue
     area, sides = 0, 0
     vis2 = set()
     q = [i]
-    visited.add(i)
     ctype = grid[i]
     while q:
         current = q.pop()
+        area += 1
         visited.add(current)
         for dir in [1, -1j, 1j, -1]:
             neighbour = current + dir
@@ -28,10 +29,8 @@ for i in list(grid.keys()):
                     while grid[ins] == ctype and grid[ins+dir] != ctype:
                         vis2.add((dir,ins+dir))
                         ins += ort
-            elif neighbour not in visited:
-                q.append(neighbour)
-                visited.add(neighbour)
-        area += 1
+            elif neighbour not in visited: q.append(neighbour)
+
     tot+=len(vis2)*area
     tot2+=sides*area
 print(tot)
